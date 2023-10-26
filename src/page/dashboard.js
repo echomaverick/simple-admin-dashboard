@@ -1,15 +1,36 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Auth } from "aws-amplify";
 import "./Dashboard.css";
 
 function Dashboard() {
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     fetchReports();
+    getUserInfo();
   }, []);
+
+  const getUserInfo = async () => {
+    try {
+      const userInfo = await Auth.currentAuthenticatedUser();
+      setUser(userInfo);
+    } catch (error) {
+      console.error("Failed to fetch user info:", error);
+    }
+  };
+
+  const signOut = async () => {
+    try {
+      await Auth.signOut();
+      // You may want to redirect the user to a login page after signing out
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
 
   const fetchReports = async () => {
     try {
@@ -37,7 +58,6 @@ function Dashboard() {
       console.error("Failed to delete the report:", error);
     }
   };
-
   const renderReports = () => {
     if (loading) {
       return (
@@ -85,6 +105,16 @@ function Dashboard() {
 
   return (
     <div className="dashboard-container">
+      <div className="navbar">
+        {user && (
+          <div className="user-info">
+            Welcome, {user.attributes.email}
+            <button className="signout-button" onClick={signOut}>
+              Sign Out
+            </button>
+          </div>
+        )}
+      </div>
       <h1>Admin Dashboard</h1>
       <button className="fetch-button" onClick={fetchReports}>
         Get Reports

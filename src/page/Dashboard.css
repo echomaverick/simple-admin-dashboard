@@ -4,11 +4,13 @@
 }
 
 .fetch-button {
-  background-color: #007bff;
+  background-color: #6e46f5;
   color: white;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 
 .report-table {
@@ -35,10 +37,32 @@
 .report-table tr:hover {
   background-color: #ddd;
 }
+
 .delete-button {
   background-color: red;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 10px 20px;
   cursor: pointer;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+.delete-button:hover{
+  background-color: #cc0000;
+}
+
+
+.signout-button {
+  background-color: #6e46f5; 
+  color: #fff; 
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+.signout-button:hover {
+  background-color: #6e46f5;
 }
