@@ -1,9 +1,10 @@
 import React from "react";
 import { withAuthenticator } from "@aws-amplify/ui-react";
-import "./App.css";
 import awsmobile from "./aws-exports";
 import { Amplify } from "aws-amplify";
 import Dashboard from "./page/dashboard";
+import '@aws-amplify/ui-react/styles.css';
+
 
 Amplify.configure(awsmobile);
 
