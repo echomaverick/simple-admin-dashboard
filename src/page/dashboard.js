@@ -26,7 +26,6 @@ function Dashboard() {
   const signOut = async () => {
     try {
       await Auth.signOut();
-      // You may want to redirect the user to a login page after signing out
     } catch (error) {
       console.error("Error signing out:", error);
     }
