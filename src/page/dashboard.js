@@ -8,6 +8,8 @@ function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [user, setUser] = useState(null);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [reportToDelete, setReportToDelete] = useState(null);
 
   useEffect(() => {
     fetchReports();
@@ -46,17 +48,24 @@ function Dashboard() {
     }
   };
 
-  const deleteReport = async (reportId) => {
+  const deleteReport = (reportId) => {
+    setIsPopupOpen(true);
+    setReportToDelete(reportId);
+  };
+
+  const confirmDelete = async () => {
     try {
       await axios.delete(
-        `https://fxb8z0anl0.execute-api.eu-west-3.amazonaws.com/prod/delete-report/${reportId}`
+        `https://fxb8z0anl0.execute-api.eu-west-3.amazonaws.com/prod/delete-report/${reportToDelete}`
       );
       console.log("Report deleted successfully");
       window.location.reload();
     } catch (error) {
       console.error("Failed to delete the report:", error);
     }
+    setIsPopupOpen(false);
   };
+
   const renderReports = () => {
     if (loading) {
       return (
@@ -104,6 +113,15 @@ function Dashboard() {
 
   return (
     <div className="dashboard-container">
+      {isPopupOpen && (
+        <div className="popup">
+          <div className="popup-inner">
+            <h2>Are you sure you want to delete? This will delete the employer account.</h2>
+            <button className="delete-button" onClick={confirmDelete}>Delete</button>
+            <button className="cancel-button" onClick={() => setIsPopupOpen(false)}>Cancel</button>
+          </div>
+        </div>
+      )}
       <div className="navbar">
         {user && (
           <div className="user-info">
