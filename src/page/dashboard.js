@@ -84,8 +84,8 @@ function Dashboard() {
 
     return reports.map((report) => (
       <tr key={report._id} className={report.deleted ? "deleted-report" : ""}>
-        <td>{report.reportedBy?.name}</td>
-        <td>{report.userBeingReported?.companyName}</td>
+        <td>{report.reportedBy?.email}</td>
+        <td>{report.userBeingReported?.email}</td>
         <td>{report.reportReason}</td>
         <td>{new Date(report.date).toLocaleDateString()}</td>
         <td>
